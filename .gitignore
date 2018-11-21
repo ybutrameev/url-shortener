@@ -2,7 +2,7 @@
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
 .idea/
-src/main/resources/script/node_modules
+src/main/resources/public/
 
 # CMake
 cmake-build-*/
