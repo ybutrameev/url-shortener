@@ -27,7 +27,7 @@ public class ApiController {
     }
 
     @PostMapping(value = "shorten", consumes = {"application/json"})
-    public Map<String, String> shortenUrl(@RequestBody @Valid final ShortenRequest shortenRequest, HttpServletRequest request) {
+    public Map<String, String> shortenUrl(@RequestBody @Valid final ShortenRequest shortenRequest, HttpServletRequest request) throws Exception {
         String longUrl = shortenRequest.getUrl();
         String customId = shortenRequest.getCustomId();
 
@@ -51,7 +51,7 @@ public class ApiController {
     }
 
     @GetMapping("get/{id}")
-    public Map<String, String> getLongUrl(@PathVariable String id) {
+    public Map<String, String> getLongUrl(@PathVariable String id) throws Exception {
 
         if (Validator.INSTANCE.isIdValid(id)) {
             return Collections.singletonMap("longUrl", urlService.getLongUrlFromId(id));

@@ -18,7 +18,7 @@ public class UrlService {
         this.urlRepository = urlRepository;
     }
 
-    public String shortenUrl(String localUrl, String longUrl, String customId) {
+    public String shortenUrl(String localUrl, String longUrl, String customId) throws Exception {
         LOGGER.info("Shortening {}", longUrl);
         // example.com/api/shorten -> example.com/
         if (localUrl.contains("api/shorten")) {
@@ -55,7 +55,7 @@ public class UrlService {
         }
     }
 
-    public String getLongUrlFromId(String uniqueId) {
+    public String getLongUrlFromId(String uniqueId) throws Exception {
         String longUrl;
         longUrl = urlRepository.getUrl(uniqueId);
         if (longUrl == null) {

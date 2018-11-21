@@ -22,7 +22,7 @@ public class MainController {
     }
 
     @RequestMapping("/r/{id}")
-    public RedirectView redirectUrl(@PathVariable String id, HttpServletRequest request) {
+    public RedirectView redirectUrl(@PathVariable String id, HttpServletRequest request) throws Exception {
         LOGGER.info("Received shortened url to redirect: " + id);
 
         RedirectView redirectView = new RedirectView();

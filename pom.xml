@@ -49,6 +49,12 @@
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>io.lettuce</groupId>
+            <artifactId>lettuce-core</artifactId>
+            <version>5.1.2.RELEASE</version>
+        </dependency>
     </dependencies>
 
     <properties>
