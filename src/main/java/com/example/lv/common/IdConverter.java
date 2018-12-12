@@ -59,9 +59,9 @@ public class IdConverter {
 
     public static String createUniqueId(Long id) {
         List<Integer> base62Id = convertBase10ToBase62Id(id);
-        if(base62Id.isEmpty()) {
-            return "a";
-        }
+//        if(base62Id.isEmpty()) {
+//            return "a";
+//        }
 
         StringBuilder uniqueUrlId = new StringBuilder();
 
@@ -72,6 +72,11 @@ public class IdConverter {
 
     private static List<Integer> convertBase10ToBase62Id(Long id) {
         LinkedList<Integer> digits = new LinkedList<>();
+
+        if(id == 0) {
+            digits.addFirst(0);
+            return digits;
+        }
 
         while (id > 0) {
             int remainder = (int)(id % 62);
@@ -97,9 +102,6 @@ public class IdConverter {
 
         for (int i = 0, exp = ids.size() - 1; i < ids.size(); ++i, --exp) {
             int base10 = charToIndexTable.get(ids.get(i));
-            if (base10 == 0) {
-                base10 = 1;
-            }
             id += (base10 * Math.pow(62.0, exp));
         }
 

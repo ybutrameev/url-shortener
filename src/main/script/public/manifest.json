@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Url shortener",
+  "name": "Shorten urls fast and easy",
   "icons": [
     {
       "src": "favicon.ico",

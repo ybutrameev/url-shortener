@@ -1,45 +1,42 @@
 import React, { Component } from 'react';
+import Header from "./components/Header";
+import Main from './components/Main';
+import Api from "./components/Api";
+import Footer from "./components/Footer";
 import './App.css';
-import {
-  Form, Input,
-} from 'reactstrap';
 
 class App extends Component {
   state = {
-    counterObject: -1,
-    shortUrlObject: '',
-    longUrl: '',
-    customId: ''
+    counterObject: {},
+    shortUrlObject: {},
+    longUrl: undefined,
+    customId: undefined
   };
 
   async componentDidMount() {
-    this.getUrlCount();
-    setInterval(this.getUrlCount, 3000);
+    this.setUrlCount();
+    setInterval(this.setUrlCount, 3000);
   }
 
-  getUrlCount = () => {
+  setUrlCount = () => {
     (async () => {
       const counterResponse = await fetch('http://localhost:8080/api/count');
-      const counterBody = await counterResponse.json();
+      const counterObject = await counterResponse.json();
 
-      this.setState({ counterObject: counterBody });
+      this.setState({ counterObject });
     })();
   };
 
-  handleChange = (event) => {
-    this.setState({ [event.target.name] : event.target.value });
-  }
-
-  handleSubmit = (event) => {
+  shortenUrl = (event) => {
     event.preventDefault();
-    var longUrl = this.state.longUrl;
-    var customId = this.state.customId;
+    var longUrl = event.target.elements.longUrl.value;
+    var customId = event.target.elements.customId.value;
     var json = {};
 
-    if(!longUrl) {
-      return;
-    } else {
+    if(longUrl) {
       longUrl = longUrl.trim();
+    } else {
+      return;
     }
 
     if(customId) {
@@ -59,38 +56,22 @@ class App extends Component {
         body: JSON.stringify(json)
       });
 
-      const shortenBody = await shortenResponse.json();
-      this.setState({ shortUrlObject: shortenBody });
+      const shortUrlObject = await shortenResponse.json();
+      this.setState({ shortUrlObject });
 
-      this.getUrlCount();
     })();
   }
 
   render() {
-    const {counterObject, shortUrlObject} = this.state;
-
     return (
       <div className="App">
-        <header className="App-header">
-          <div className="App-intro">
-            {counterObject.urlCount} URLs were shortened so far.<br/>
-            Let's short another one!
-            <Form onSubmit={this.handleSubmit}>
-              <Input
-                type="text"
-                name="longUrl"
-                placeholder="url"
-                onChange={this.handleChange} />
-              <Input
-                type="text"
-                name="customId"
-                placeholder="customId"
-                onChange={this.handleChange} />
-              <Input type="submit" value="Shorten" />
-            </Form>
-            <a href={shortUrlObject.shortUrl} target="_blank" rel="noopener noreferrer">{shortUrlObject.shortUrl}</a>
-          </div>
-        </header>
+        <Header urlCount = {this.state.counterObject.urlCount} />
+        <Main 
+          shortenUrl = {this.shortenUrl}
+          shortUrlObject = {this.state.shortUrlObject}
+        />
+        <Api />
+        <Footer/>
       </div>
     );
   }
