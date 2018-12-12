@@ -67,4 +67,4 @@ Tests are located at `src/test/java`
 
 # Front-end screenshot  
 ![Alt text](http://i68.tinypic.com/35ar987.png)  
-Links counter is animated ^_^
+Links counter is animated ^_^ (trust me)
